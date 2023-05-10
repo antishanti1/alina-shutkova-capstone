@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ReactMapGL, { Marker , Popup} from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import  testData from '../../testData/test.json';
+// import  testData from '../../testData/test.json';
 import { FcLike } from "react-icons/fc";
+import axios from 'axios';
 
 
 export default function MainMap () {
+    const [listings, setListings] = useState([]);
     const [viewport, setViewport] = useState({
         latitude: 25.7741728,
         longitude: -80.19362,
@@ -14,7 +16,21 @@ export default function MainMap () {
         zoom: 12,
     })
 
-    const [selectedList, setSelectedList] = useState(null);
+    // const [selectedList, setSelectedList] = useState(null);
+
+    useEffect(() => {
+     const getListings = async () => {
+        try {
+            // const response = await axios.get('http://localhost:5050/api/listings');    
+            const response = await axios.get('/listings');    
+            setListings(response.data);    
+     }catch (error) {
+         console.error(error);
+     }
+    };
+    getListings();
+    },[])
+
 
 
     return (
@@ -26,24 +42,46 @@ export default function MainMap () {
        
         onViewportChange={newViewport => {
          setViewport(newViewport);
-         console.log(newViewport);
             }}
             mapStyle="mapbox://styles/ashutkova/clhgnu8xz000i01qtdusxcett"
 >
-{testData.listings.map((listing) => (
-    <Marker key={listing.id} latitude={listing.latitude} longitude={listing.longitude}>
+{listings.map((listing) => (
+    <Marker key={listing.id} 
+    latitude={listing.latitude} 
+    longitude={listing.longitude}>
+
        <button className="marker-btn" onClick={(e) => { 
               e.preventDefault();
-              setSelectedList(listing);
+              setListings(listing);
        }}
       > 
        <FcLike />
         </button>
     </Marker>
+
+        //   <Popup
+        //     latitude={listing.latitude}
+        //     longitude={selectedList.longitude}
+        //     onClose={() => setSelectedList(null)}
+        //     closeOnClick={false}
+        //     anchor="top"
+        //   >
+        //     <div>
+        //         <p>Title: {selectedList.title}</p>
+        //         <p>Description: {selectedList.description}</p>
+        //         <p>Quantity: {selectedList.quantity}</p>
+        //         <p>Phone number: {selectedList.phone_number}</p>
+        //         <p>Email: {selectedList.email}</p>
+        //     </div>
+        //   </Popup>
+
+
 ))}
 
 
-{selectedList && (
+
+   
+{/* {selectedList && (
           <Popup
             latitude={selectedList.latitude}
             longitude={selectedList.longitude}
@@ -59,7 +97,7 @@ export default function MainMap () {
                 <p>Email: {selectedList.email}</p>
             </div>
           </Popup>
-        )}
+        )} */}
 
 </ReactMapGL>
 
