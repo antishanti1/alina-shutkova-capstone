@@ -1,0 +1,38 @@
+{
+    "listings": [
+      {
+        "id": 1,
+        "title": "Shoes",
+        "description": "Shoes for 5-8 year old boy",
+        "quantity": 3,
+        "phone_number": "555-555-1234",
+        "email": "john.doe@email.com",
+        "date": 1657249200,
+        "longitude": -80.1879,
+        "latitude": 25.7762
+      },
+      {
+        "id": 2,
+        "title": "Job",
+        "description": "Babysitter for 14 month girl , 3 days a week , 4 hours a day, 15$ an hour",
+        "quantity": 1,
+        "phone_number": "555-555-5678",
+        "email": "jane.doe@email.com",
+        "date": 1657335600,
+        "longitude": -80.1956354,
+        "latitude": 25.7793871
+      },
+      {
+        "id": 3,
+        "title": "Furniture",
+        "description": "Couch, 2 chairs, and a table",
+        "quantity": 1,
+        "phone_number": "555-555-9012",
+        "email": "jim.smith@email.com",
+        "date": 1657508400,
+        "longitude": -80.1900947,
+        "latitude": 25.7824135
+      }
+    ]
+  }
+  

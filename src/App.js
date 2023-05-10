@@ -3,10 +3,13 @@ import './App.scss';
 import MainMap from "./pages/Map/MainMap";
 
 
+
 export default function App () {
   return (
     <>
-   <MainMap />
+    <div className="main">  
+       <MainMap /></div>
+
 
     </>
   )
