@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import ReactMapGL, { Marker , Popup} from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 // import  testData from '../../testData/test.json';
+import {format} from 'timeago.js';
 import { FaMapMarkerAlt } from "react-icons/fa";
 import axios from 'axios';
 
@@ -12,16 +13,14 @@ export default function MainMap () {
     const [popupOpen, setPopupOpen] = useState(false);
     const [selectedList, setSelectedList] = useState(null);
     const [newListing, setNewListing] = useState(null);
+    const [newListingTitle, setNewListingTitle] = useState("");
+    const [newListingDescription, setNewListingDescription] = useState("");
+    const [newListingQuantity, setNewListingQuantity] = useState("");
+    const [newListingPhoneNumber, setNewListingPhoneNumber] = useState("");
+    const [newListingEmail, setNewListingEmail] = useState("");
 
-    const [viewport, setViewport] = useState({
-        
-        latitude: 25.7741728,
-        longitude: -80.19362,
-        width: "100%",
-        height: "100%",
-        zoom: 12,
-        
-    })
+
+    const [viewport, setViewport] = useState({})
   
 
     useEffect(() => {
@@ -46,23 +45,37 @@ export default function MainMap () {
         });
     }
     
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const newPost = {
+            username: currentUser,
+            title: newListingTitle,
+            description: newListingDescription,
+            quantity: newListingQuantity,
+            phone_number: newListingPhoneNumber,
+            email: newListingEmail,
+            lat: newListing.lat,
+            lng: newListing.lng,
+        };
+         try {
+            const response = await axios.post('http://localhost:5050/api/listings', newPost);
+            setListings([...listings, response.data]);
+            setNewListing(null);
+        } catch (error) {
+            console.log(error);
+        }
+    } 
     
     return (
 
-        
-//     <div style={{width: "100%", height: "100%"}}>
-
-// </div>
-
-
-
-
- 
-    <div style={{width: "100%", height: "100%", position:'relative'}}>
+    <div style={{width: "100%", height: "100%"}}>
         <ReactMapGL 
+            initialViewState={{
+                latitude: 25.7741728,
+                longitude: -80.19362,
+                zoom: 12
+              }}
          {...viewport}
-         width="100%"
-         height="100%"
            onViewportChange={newViewport => {
          setViewport(newViewport);
             }}
@@ -76,7 +89,7 @@ export default function MainMap () {
     < React.Fragment key={listing._id}>
     <Marker 
     latitude={listing.lat} 
-    longitude={listing.long}
+    longitude={listing.lng}
     onClick={(values) => {
         setPopupOpen({[listing._id]: true})
         setSelectedList(listing);
@@ -86,7 +99,7 @@ export default function MainMap () {
        <FaMapMarkerAlt  
          style={{
          fill: listing.username === currentUser ? "yellow" : "blue",
-         fontSize: viewport.zoom * 3,
+        //  fontSize: viewport.zoom * 10,
          cursor: "pointer",}}
        />
        
@@ -95,7 +108,7 @@ export default function MainMap () {
     {popupOpen[listing._id] && (
           <Popup
             latitude={selectedList?.lat}
-            longitude={selectedList?.long}
+            longitude={selectedList?.lng}
             onClose={() => {
                 setSelectedList(null)
                 setPopupOpen(false)
@@ -111,6 +124,7 @@ export default function MainMap () {
                 <p>Quantity: {selectedList?.quantity}</p>
                 <p>Phone number: {selectedList?.phone_number}</p>
                 <p>Email: {selectedList?.email}</p>
+                <p>{format(selectedList?.createdAt)}</p>
             </div>
           </Popup>
         )}
@@ -128,7 +142,23 @@ export default function MainMap () {
             closeOnClick={false}
             
             anchor="top"
-          >test</Popup>
+          > <div>
+            <form onSubmit={handleSubmit}>
+                <label>Title</label>
+                <input type="text" placeholder="Title" onChange={(e) => setNewListingTitle(e.target.value)} />
+                <label>Description</label>
+                <input type="text" placeholder="Description" onChange={(e) => setNewListingDescription(e.target.value)} />
+                <label>Quantity</label>
+                <input type="text" placeholder="Quantity" onChange={(e) => setNewListingQuantity(e.target.value)} />
+                <label>Phone number</label>
+                <input type="text" placeholder="Phone number"  onChange={(e) => setNewListingPhoneNumber(e.target.value)}/>
+                <label>Email</label>
+                <input type="text" placeholder="Email"  onChange={(e) => setNewListingEmail(e.target.value)}/>
+                <button type="submit">Submit</button>
+                
+            </form>
+          </div>
+          </Popup>
 )}
 
 
