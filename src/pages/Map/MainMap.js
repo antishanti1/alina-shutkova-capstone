@@ -14,11 +14,13 @@ export default function MainMap () {
     const [newListing, setNewListing] = useState(null);
 
     const [viewport, setViewport] = useState({
+        
         latitude: 25.7741728,
         longitude: -80.19362,
-        width: "100vw",
-        height: "100vh",
+        width: "100%",
+        height: "100%",
         zoom: 12,
+        
     })
   
 
@@ -37,6 +39,7 @@ export default function MainMap () {
 
     const handleAddClick = (e) => {
         const { lng, lat } = e.lngLat;
+        console.log(lng, lat);
         setNewListing({
             lng: lng,
             lat: lat,
@@ -45,14 +48,26 @@ export default function MainMap () {
     
     
     return (
+
+        
+//     <div style={{width: "100%", height: "100%"}}>
+
+// </div>
+
+
+
+
  
-    <div style={{width: "100%", height: "100%"}}>
+    <div style={{width: "100%", height: "100%", position:'relative'}}>
         <ReactMapGL 
          {...viewport}
-        mapboxAccessToken={"pk.eyJ1IjoiYXNodXRrb3ZhIiwiYSI6ImNsaGdvMWllbzA2cWUzbG56cHd0OWNiMXIifQ.OY3xKwqI9zbx6aflRvdEtw"}
-        onViewportChange={newViewport => {
+         width="100%"
+         height="100%"
+           onViewportChange={newViewport => {
          setViewport(newViewport);
             }}
+        mapboxAccessToken={"pk.eyJ1IjoiYXNodXRrb3ZhIiwiYSI6ImNsaGdvMWllbzA2cWUzbG56cHd0OWNiMXIifQ.OY3xKwqI9zbx6aflRvdEtw"}
+      
             mapStyle="mapbox://styles/ashutkova/clhgnu8xz000i01qtdusxcett"
      onDblClick={handleAddClick}
 
@@ -120,26 +135,6 @@ export default function MainMap () {
 </React.Fragment>
 ))}
 
-
-
-   
-{/* {selectedList && (
-          <Popup
-            latitude={selectedList.latitude}
-            longitude={selectedList.longitude}
-            onClose={() => setSelectedList(null)}
-            closeOnClick={false}
-            anchor="top"
-          >
-            <div>
-                <p>Title: {selectedList.title}</p>
-                <p>Description: {selectedList.description}</p>
-                <p>Quantity: {selectedList.quantity}</p>
-                <p>Phone number: {selectedList.phone_number}</p>
-                <p>Email: {selectedList.email}</p>
-            </div>
-          </Popup>
-        )} */}
 
 </ReactMapGL>
 
