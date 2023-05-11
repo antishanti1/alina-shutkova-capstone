@@ -5,10 +5,14 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import {format} from 'timeago.js';
 import { FaMapMarkerAlt } from "react-icons/fa";
 import axios from 'axios';
+import Register from '../../components/Register/Register';
+import Login from '../../components/Login/Login';
+
 
 
 export default function MainMap () {
-    const currentUser = "jerry";
+    // const currentUser = "jerry";
+    const [currentUser, setCurrentUser] = useState(null);
     const [listings, setListings] = useState([]);
     const [popupOpen, setPopupOpen] = useState(false);
     const [selectedList, setSelectedList] = useState(null);
@@ -19,6 +23,10 @@ export default function MainMap () {
     const [newListingPhoneNumber, setNewListingPhoneNumber] = useState("");
     const [newListingEmail, setNewListingEmail] = useState("");
 
+    
+    const [showSignup, setShowSignup] = useState(false);
+    const [showLogin, setShowLogin] = useState(false);
+    
 
     const [viewport, setViewport] = useState({})
   
@@ -58,17 +66,39 @@ export default function MainMap () {
             lng: newListing.lng,
         };
          try {
-            const response = await axios.post('http://localhost:5050/api/listings', newPost);
+            const response = await axios.post('http://localhost:5050/api/login', newPost);
             setListings([...listings, response.data]);
             setNewListing(null);
         } catch (error) {
             console.log(error);
         }
     } 
+
+    const handleLogout = () => {
+        setCurrentUser(null);
+    }
     
     return (
 
+
     <div style={{width: "100%", height: "100%"}}>
+        <Login />
+        <div className="sidebar">
+        {currentUser ? 
+        (<button  onClick={handleLogout}> Log out</button>) : 
+        
+        ( <div>
+        <button onClick={() => setShowLogin(true)}> Log in</button>
+        <button onClick={() => setShowSignup(true)}> Sign up</button> 
+        </div>)}
+
+        {showSignup && <Register setShowSignup = {setShowSignup}/>}
+        {showLogin && <Login setShowLogin = {setShowLogin}/>}
+       {/* <Register /> */}
+        {/* {showLogin && <Login />} */}
+   
+
+            </div>
         <ReactMapGL 
             initialViewState={{
                 latitude: 25.7741728,
