@@ -1,32 +1,29 @@
 import React, {useEffect, useState} from 'react';
 import ReactMapGL, { Marker , Popup} from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-// import  testData from '../../testData/test.json';
 import {format} from 'timeago.js';
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaMapMarkerAlt, FaPizzaSlice, FaTshirt, FaCouch , FaMoneyBillAlt, FaHandsHelping, FaConnectdevelop} from "react-icons/fa";
+import { BsFillHouseFill,  } from "react-icons/bs";
 import axios from 'axios';
-import Register from '../../components/Register/Register';
-import Login from '../../components/Login/Login';
-
 
 
 export default function MainMap () {
-    // const currentUser = "jerry";
-    const [currentUser, setCurrentUser] = useState(null);
+  
+    // const [currentUser, setCurrentUser] = useState(null);
     const [listings, setListings] = useState([]);
     const [popupOpen, setPopupOpen] = useState(false);
     const [selectedList, setSelectedList] = useState(null);
     const [newListing, setNewListing] = useState(null);
+    const [newListingName, setNewListingName] = useState("");
+    const [newListingCategory, setNewListingCategory] = useState("");
     const [newListingTitle, setNewListingTitle] = useState("");
     const [newListingDescription, setNewListingDescription] = useState("");
     const [newListingQuantity, setNewListingQuantity] = useState("");
     const [newListingPhoneNumber, setNewListingPhoneNumber] = useState("");
     const [newListingEmail, setNewListingEmail] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState(null);
 
-    
-    const [showSignup, setShowSignup] = useState(false);
-    const [showLogin, setShowLogin] = useState(false);
-    
+   
 
     const [viewport, setViewport] = useState({})
   
@@ -56,7 +53,8 @@ export default function MainMap () {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const newPost = {
-            username: currentUser,
+            username: newListingName,
+            category: newListingCategory,
             title: newListingTitle,
             description: newListingDescription,
             quantity: newListingQuantity,
@@ -66,7 +64,7 @@ export default function MainMap () {
             lng: newListing.lng,
         };
          try {
-            const response = await axios.post('http://localhost:5050/api/login', newPost);
+            const response = await axios.post('http://localhost:5050/api/listings', newPost);
             setListings([...listings, response.data]);
             setNewListing(null);
         } catch (error) {
@@ -74,31 +72,77 @@ export default function MainMap () {
         }
     } 
 
-    const handleLogout = () => {
-        setCurrentUser(null);
+
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`http://localhost:5050/api/listings/${id}`);
+            const newListings = listings.filter((listing) => listing._id !== id);
+            setListings(newListings);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+    const categoryIconMapping = {
+        "Food": <FaPizzaSlice
+        style={{
+            cursor: "pointer",
+            fontSize: "32px" 
+          }} />,
+        "Clothes": <FaTshirt
+        style={{
+            cursor: "pointer",
+            fontSize: "32px" 
+          }}  />,
+        "Household": <FaCouch 
+        style={{
+            cursor: "pointer",
+            fontSize: "32px" 
+          }} />,
+        "Housing": <BsFillHouseFill 
+        style={{
+            cursor: "pointer",
+            fontSize: "32px" 
+          }} />,
+        "Jobs": <FaMoneyBillAlt 
+        style={{
+            cursor: "pointer",
+            fontSize: "32px" 
+          }} />,
+        "Services": <FaHandsHelping
+        style={{
+            cursor: "pointer",
+            fontSize: "32px" 
+          }}  />,
+        "Other": <FaConnectdevelop 
+        style={{
+            cursor: "pointer",
+            fontSize: "32px" 
+          }} />,
     }
     
     return (
 
 
     <div style={{width: "100%", height: "100%"}}>
-        <Login />
-        <div className="sidebar">
-        {currentUser ? 
-        (<button  onClick={handleLogout}> Log out</button>) : 
-        
-        ( <div>
-        <button onClick={() => setShowLogin(true)}> Log in</button>
-        <button onClick={() => setShowSignup(true)}> Sign up</button> 
-        </div>)}
+        <div>
+  <select
+    value={selectedCategory || ''}
+    onChange={(e) => setSelectedCategory(e.target.value || null)}
+  >
+    <option value="">All Categories</option>
+    <option value="Food">Food</option>
+    <option value="Clothes">Clothes</option>
+    <option value="Household">Household</option>
+    <option value="Housing">Housing</option>
+    <option value="Jobs">Jobs</option>
+    <option value="Services">Services</option>
+    <option value="Other">Other</option>
+  </select>
+</div>
 
-        {showSignup && <Register setShowSignup = {setShowSignup}/>}
-        {showLogin && <Login setShowLogin = {setShowLogin}/>}
-       {/* <Register /> */}
-        {/* {showLogin && <Login />} */}
-   
 
-            </div>
         <ReactMapGL 
             initialViewState={{
                 latitude: 25.7741728,
@@ -115,7 +159,9 @@ export default function MainMap () {
      onDblClick={handleAddClick}
 
 >
-{listings.map( listing => (
+{listings
+.filter((listing) => !selectedCategory || listing.category === selectedCategory)
+.map( listing => (
     < React.Fragment key={listing._id}>
     <Marker 
     latitude={listing.lat} 
@@ -126,12 +172,13 @@ export default function MainMap () {
     }}
     >
 
-       <FaMapMarkerAlt  
+       {/* <FaMapMarkerAlt  
          style={{
-         fill: listing.username === currentUser ? "yellow" : "blue",
-        //  fontSize: viewport.zoom * 10,
+         fill:  "blue",
          cursor: "pointer",}}
-       />
+       /> */}
+        {(!selectedCategory || listing.category === selectedCategory) && (categoryIconMapping[listing.category])}
+         {/* {categoryIconMapping[listing.category]} */}
        
     </Marker>
 
@@ -149,12 +196,14 @@ export default function MainMap () {
           >
             <div>
                 <p> {selectedList?.username}</p>
+                <p>Category: {selectedList?.category}</p>
                 <p>Title: {selectedList?.title}</p>
                 <p>Description: {selectedList?.description}</p>
                 <p>Quantity: {selectedList?.quantity}</p>
                 <p>Phone number: {selectedList?.phone_number}</p>
                 <p>Email: {selectedList?.email}</p>
                 <p>{format(selectedList?.createdAt)}</p>
+                <button onClick={() => handleDelete(selectedList?._id)}>Delete</button>
             </div>
           </Popup>
         )}
@@ -174,6 +223,19 @@ export default function MainMap () {
             anchor="top"
           > <div>
             <form onSubmit={handleSubmit}>
+                <label>Name</label>
+                <input type="text" placeholder="Name" onChange={(e) => setNewListingName(e.target.value)} />
+                <label>Category</label>
+                <select onChange={(e) => setNewListingCategory(e.target.value)}> 
+                    <option value="select">Select</option>
+                    <option value="Food">Food</option>
+                    <option value="Clothes">Clothes</option>
+                    <option value="Household">Household</option>
+                    <option value="Housing">Housing</option>
+                    <option value="Jobs">Jobs</option>
+                    <option value="Services">Services</option>
+                    <option value="Other">Other</option>
+                </select>
                 <label>Title</label>
                 <input type="text" placeholder="Title" onChange={(e) => setNewListingTitle(e.target.value)} />
                 <label>Description</label>
@@ -191,13 +253,10 @@ export default function MainMap () {
           </Popup>
 )}
 
-
 </React.Fragment>
 ))}
 
-
 </ReactMapGL>
-
 
     </div>
 
