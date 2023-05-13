@@ -1,0 +1,31 @@
+@use '../../styles/partials/variables.scss' as *;
+@use '../../styles/partials/typography.scss' as *;
+
+.load-box {
+    background-color: $primary-color-grey;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__heading {
+        font-family: 'Castoro';
+        color: $primary-color-white;
+        font-size: 8rem;
+        z-index: 1;
+    }
+
+    &__mod {
+        position: absolute;
+        width: 70%;
+        height: 50%;
+    }
+
+
+
+body {
+  background-color: $background-color;
+}
+
+
+}

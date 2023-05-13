@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import ReactMapGL, { Marker , Popup} from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import {format} from 'timeago.js';
-import { FaMapMarkerAlt, FaPizzaSlice, FaTshirt, FaCouch , FaMoneyBillAlt, FaHandsHelping, FaConnectdevelop} from "react-icons/fa";
+import {  FaPizzaSlice, FaTshirt, FaCouch , FaMoneyBillAlt, FaHandsHelping, FaConnectdevelop} from "react-icons/fa";
 import { BsFillHouseFill,  } from "react-icons/bs";
 import axios from 'axios';
 
@@ -126,7 +126,7 @@ export default function MainMap () {
 
 
     <div style={{width: "100%", height: "100%"}}>
-        <div>
+        <div className='map-filter' >
   <select
     value={selectedCategory || ''}
     onChange={(e) => setSelectedCategory(e.target.value || null)}
