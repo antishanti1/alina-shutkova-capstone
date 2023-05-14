@@ -1,5 +1,8 @@
 .main-button {
-   
+    &__text {
+        font-family: 'Castoro';
+    }
+
     &.light {
         --delay: .15s;
         --c-color-1: #{rgba(#ACA0FF, .15)};

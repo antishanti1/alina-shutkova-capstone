@@ -1,19 +1,25 @@
 
 import React, { useRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
-// import { AmbientLight, DirectionalLight } from "@react-three/drei";
+import { useFrame } from '@react-three/fiber'
+
 
 export default function Model(props) {
-  const group = useRef();
+  const ref = useRef();
   const { nodes, materials, animations } = useGLTF("/organic_voroni_ball.glb");
-  const { actions } = useAnimations(animations, group);
+
+
+  
+  useFrame((state, delta) => (ref.current.rotation.y += delta))
+
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={ref} {...props} dispose={null} scale={1.7} >
       <group name="Sketchfab_Scene">
         <group
           name="Sketchfab_model"
           rotation={[-Math.PI / 2, 0, 0]}
           scale={1.43}
+          position={[0, -1, 0]} 
         >
           <group name="root">
             <group name="GLTF_SceneRootNode" rotation={[Math.PI / 2, 0, 0]}>

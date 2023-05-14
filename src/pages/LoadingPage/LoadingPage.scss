@@ -2,23 +2,31 @@
 @use '../../styles/partials/typography.scss' as *;
 
 .load-box {
-    background-color: $primary-color-grey;
+    background-color: $primary-color-white;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
 
+   
+
     &__heading {
         font-family: 'Castoro';
-        color: $primary-color-white;
+        color: $primary-color-dark;
         font-size: 8rem;
+        display: flex;
         z-index: 1;
+  
+    }
+
+    &__icon {
+        padding-top: 0.5rem;
     }
 
     &__mod {
         position: absolute;
-        width: 70%;
-        height: 50%;
+        width: 100%;
+        height: 100%;
     }
 
 

@@ -15,19 +15,6 @@ export default function Model(props) {
     <group  ref={ref} scale={0.4} {...props} dispose={null}>
          <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
-          <group
-            // position={[0, 0, 0]}
-            position={[0.94, -0.04, 2.19]}
-            rotation={[0.7, 0, 0]}
-            scale={[0.9, 1, 0.71]}
-          >
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.Object_4.geometry}
-              material={materials["Material.001"]}
-            />
-          </group>
           <group position={[0, -9.41, 0]} scale={16.21}>
             <mesh
               castShadow

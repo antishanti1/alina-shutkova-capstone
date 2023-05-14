@@ -2,6 +2,7 @@
 import {React, Suspense} from 'react';
 import './LoadingPage.scss';
 import {Canvas} from '@react-three/fiber';
+import {FaConnectdevelop} from "react-icons/fa";
 import { Environment, OrbitControls } from '@react-three/drei';
 import MainModel from './MainModel';
 
@@ -12,7 +13,8 @@ return (
     <>
  
     <div className='load-box'>
-       <h1 className='load-box__heading'> Dopomoha.</h1>
+  
+       <h1 className='load-box__heading'> <span className='load-box__icon'>< FaConnectdevelop /> </span> Dopomoha.</h1>
 
            <div className='load-box__mod'>
                 <Canvas>
