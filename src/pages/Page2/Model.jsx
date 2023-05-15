@@ -10,7 +10,8 @@ export default function Model(props) {
 
 
   
-  useFrame((state, delta) => (ref.current.rotation.y += delta))
+//   useFrame((state, delta) => (ref.current.rotation.y += delta))
+useFrame((state, delta) => (ref.current.rotation.y += 0.05 * delta));
 
   return (
     <group ref={ref} {...props} dispose={null} scale={1.7} >

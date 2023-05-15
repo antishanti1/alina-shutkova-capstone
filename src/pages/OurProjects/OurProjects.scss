@@ -1,0 +1,147 @@
+@use '../../styles/partials/typography' as *;
+@use '../../styles/partials/variables' as *;
+
+.projects {
+    height: 100vh;
+
+    &__mid {
+        display: flex;
+        height: 50%;
+        gap: 2rem;
+        align-items: center;
+        justify-content: center;
+
+        &-name{
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        &-desc{
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        &--bold {
+            font-size: 1.2rem;
+            font-weight: 700;
+            display: flex;
+            gap:.3rem;
+            border-bottom: 1px solid $primary-color-dark;
+            margin-right: 25rem;
+
+        }
+       }
+
+    &__img {
+       display: flex;
+       flex-direction: column;
+       height: 100%;
+       justify-content: space-between;
+
+       &-top {
+        display: flex;
+        justify-content: space-between;
+       padding: 0 4rem 0 4rem;
+       }
+
+       &-bot {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row-reverse;
+        padding: 0 4rem 0 4rem;
+       }
+
+       
+
+       &-1{
+        background-image: url('../../assets/images/-EKR7p-g.jpeg');
+        height: 220px;
+        width: 170px;
+        background-position: center;
+        background-size: 100%;
+
+       }
+       &-2{
+        background-image: url('../../assets/images/71OSkbk8.jpeg');
+        height: 220px;
+        width: 170px;
+        background-position: center;
+        background-size: 100%;
+       }
+       &-3{
+        background-image: url('../../assets/images/jskIFd5Q.jpeg');
+        height: 220px;
+        width: 170px;
+        background-position: center;
+        background-size: 100%;
+       }
+       &-4{
+        background-image: url('../../assets/images/u41oEYZc.jpeg');
+        height: 220px;
+        width: 170px;
+        background-position: center;
+        background-size: 100%;
+       }
+       &-5{
+        background-image: url('../../assets/images/uOom87Lw.jpeg');
+        height: 220px;
+        width: 170px;
+        background-position: center;
+        background-size: 100%;
+       }
+       &-6{
+        background-image: url('../../assets/images/IfTIJm-U.jpeg');
+        height: 220px;
+        width: 170px;
+        background-position: center;
+        background-size: 100%;
+       }
+       &-7{
+        background-image: url('../../assets/images/IyLg7Zng.jpeg');
+        height: 220px;
+        width: 170px;
+        background-position: center;
+        background-size: 100%;
+       }
+       &-8{
+        background-image: url('../../assets/images/5oIii7Zs.jpeg');
+        height: 220px;
+        width: 170px;
+        background-position: center;
+        background-size: 100%;
+       }
+       &-9{
+        background-image: url('../../assets/images/TG4v8O_U.jpeg');
+        height: 220px;
+        width: 170px;
+        background-position: center;
+        background-size: 100%;
+       }
+       &-10{
+        background-image: url('../../assets/images/6jct1AZo.jpeg');
+        height: 220px;
+        width: 170px;
+        background-position: center;
+        background-size: 100%;
+       }
+       &-11{
+        background-image: url('../../assets/images/g8EYfWFY.jpeg');
+        height: 220px;
+        width: 170px;
+        background-position: center;
+        background-size: 100%;
+       }
+       &-12{
+        background-image: url('../../assets/images/WrVJrSXU.jpeg');
+        height: 220px;
+        width: 170px;
+        background-position: center;
+        background-size: 100%;
+       }
+
+
+
+    }
+}

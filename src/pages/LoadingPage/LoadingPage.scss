@@ -7,6 +7,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow-y: scroll;
 
    
 
@@ -15,8 +16,12 @@
         color: $primary-color-dark;
         font-size: 8rem;
         display: flex;
-        z-index: 1;
+      
   
+    }
+
+    &__front {
+        z-index: 1;
     }
 
     &__icon {

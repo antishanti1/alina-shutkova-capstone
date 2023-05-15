@@ -1,0 +1,19 @@
+.map {
+   position: relative;
+    &__filter {
+        position: absolute;
+        top: 5%;
+        z-index: 1;
+        left: 10%;
+    }
+
+
+
+}
+
+.dropdown {
+    position: absolute;
+    top: 5%;
+    z-index: 1;
+    left: 10%;
+}

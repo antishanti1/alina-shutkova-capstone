@@ -8,13 +8,14 @@ export default function Model(props) {
   const { nodes, materials } = useGLTF("/abstract_snot.glb");
   const ref = useRef();
   
-
-  useFrame((state, delta) => (ref.current.rotation.x += delta))
+  useFrame((state, delta) => (ref.current.rotation.x += 0.5 * delta));
+  // useFrame((state, delta) => (ref.current.rotation.x += delta))
 
   return (
     <group  ref={ref} scale={0.4} {...props} dispose={null}>
          <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
+        
           <group position={[0, -9.41, 0]} scale={16.21}>
             <mesh
               castShadow

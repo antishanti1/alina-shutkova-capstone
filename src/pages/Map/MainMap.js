@@ -5,6 +5,7 @@ import {format} from 'timeago.js';
 import {  FaPizzaSlice, FaTshirt, FaCouch , FaMoneyBillAlt, FaHandsHelping, FaConnectdevelop} from "react-icons/fa";
 import { BsFillHouseFill,  } from "react-icons/bs";
 import axios from 'axios';
+import './MainMap.scss';
 
 
 export default function MainMap () {
@@ -126,7 +127,7 @@ export default function MainMap () {
 
 
     <div style={{width: "100%", height: "100%"}}>
-        <div className='map-filter' >
+        <div className='map__filter' >
   <select
     value={selectedCategory || ''}
     onChange={(e) => setSelectedCategory(e.target.value || null)}
