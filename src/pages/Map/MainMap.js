@@ -12,7 +12,10 @@ import './MainMap.scss';
 
 export default function MainMap() {
 
-  const MAPBOX_API_TOKEN = process.env.REACT_APP_MAPBOX_API_TOKEN;
+  // const MAPBOX_API_TOKEN = process.env.REACT_APP_MAPBOX_API_TOKEN;
+  // console.log(MAPBOX_API_TOKEN);
+  
+
   const [listings, setListings] = useState([]);
   const [popupOpen, setPopupOpen] = useState(false);
   const [selectedList, setSelectedList] = useState(null);
@@ -173,7 +176,8 @@ export default function MainMap() {
         onViewportChange={newViewport => {
           setViewport(newViewport);
         }}
-        mapboxAccessToken={MAPBOX_API_TOKEN}
+        // mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+        mapboxAccessToken={"pk.eyJ1IjoiYXNodXRrb3ZhIiwiYSI6ImNsaGduYnVtNzBhNmgzZ3Joc3Y4aDZ5Zm4ifQ.chMAXW-muUbStSja3v5htA"}
         mapStyle={mapStyle}
         onDblClick={handleAddClick}
 
