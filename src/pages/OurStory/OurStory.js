@@ -9,10 +9,7 @@ import { HiOutlineArrowRight } from 'react-icons/hi';
 import { Link } from "react-router-dom";
 
 const visible = { opacity: 1, y: 0, transition: { duration: 1.2 } };
-const itemVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible
-};
+
 
 export default function OurStory() {
     return (
