@@ -4,19 +4,12 @@
 .sec-box {
     background-color: $primary-color-white;
     height: 100vh;
-    // overflow-y: scroll;
-
+    padding-top: 6rem;
 
     &__heading {
         font-family: 'Castoro';
         color: $primary-color-white;
         font-size: 8rem;
-    }
-
-    .sec-font {
-        font-family: 'Castoro';
-
-       
     }
 
     &__cont {
@@ -46,8 +39,6 @@
         font-size: 3.5rem;
         font-weight: 700;
     }
-
-
     button {
         transition: all 0.2s ease;
         background: $primary-color-white;
@@ -125,18 +116,8 @@
         margin: 2rem 4rem;
       }
       
-      @keyframes hr-animation {
-        from {
-          background: $background-color;
-        }
-        to {
-          background: linear-gradient($hr-gradient-angle, $hr-gradient-start-color 0%, $hr-gradient-mid-color 50%, $hr-gradient-end-color 100%);
-        }
-      }
-
-      
+   
  .object {
-  // position: absolute;
   height: 600px;
     width: 700px;
     padding-left: 1rem;

@@ -1,6 +1,6 @@
 
 import React, { useRef } from "react";
-import { useGLTF, useAnimations } from "@react-three/drei";
+import { useGLTF } from "@react-three/drei";
 import { useFrame } from '@react-three/fiber'
 
 
@@ -8,9 +8,6 @@ export default function Model(props) {
   const ref = useRef();
   const { nodes, materials, animations } = useGLTF("/organic_voroni_ball.glb");
 
-
-  
-//   useFrame((state, delta) => (ref.current.rotation.y += delta))
 useFrame((state, delta) => (ref.current.rotation.y += 0.05 * delta));
 
   return (

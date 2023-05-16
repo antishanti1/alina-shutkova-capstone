@@ -8,9 +8,8 @@ import axios from 'axios';
 import './MainMap.scss';
 
 
+
 export default function MainMap () {
-  
-    // const [currentUser, setCurrentUser] = useState(null);
     const [listings, setListings] = useState([]);
     const [popupOpen, setPopupOpen] = useState(false);
     const [selectedList, setSelectedList] = useState(null);
@@ -23,11 +22,10 @@ export default function MainMap () {
     const [newListingPhoneNumber, setNewListingPhoneNumber] = useState("");
     const [newListingEmail, setNewListingEmail] = useState("");
     const [selectedCategory, setSelectedCategory] = useState(null);
-
-   
-
     const [viewport, setViewport] = useState({})
-  
+    const [mapStyle, setMapStyle] = useState("mapbox://styles/mapbox/dark-v11");
+    const darkStyle = "mapbox://styles/mapbox/dark-v11";
+    const lightStyle = "mapbox://styles/mapbox/light-v11";
 
     useEffect(() => {
      const getListings = async () => {
@@ -40,7 +38,6 @@ export default function MainMap () {
     };
     getListings();
     },[]);
-
 
     const handleAddClick = (e) => {
         const { lng, lat } = e.lngLat;
@@ -73,7 +70,6 @@ export default function MainMap () {
         }
     } 
 
-
     const handleDelete = async (id) => {
         try {
             await axios.delete(`http://localhost:5050/api/listings/${id}`);
@@ -84,66 +80,86 @@ export default function MainMap () {
         }
     }
 
-
     const categoryIconMapping = {
         "Food": <FaPizzaSlice
         style={{
             cursor: "pointer",
-            fontSize: "32px" 
+            fontSize: "40px",
+            fill: mapStyle === lightStyle ? '#FDE12D' : 'lightyellow',
           }} />,
         "Clothes": <FaTshirt
         style={{
             cursor: "pointer",
-            fontSize: "32px" 
+            fontSize: "40px",
+            fill: mapStyle === lightStyle ? '#2C82B5' : 'lightblue'
           }}  />,
         "Household": <FaCouch 
         style={{
             cursor: "pointer",
-            fontSize: "32px" 
+            fontSize: "40px" ,
+            fill: mapStyle === lightStyle ? '#74226C' : 'lightpink' 
           }} />,
         "Housing": <BsFillHouseFill 
         style={{
             cursor: "pointer",
-            fontSize: "32px" 
+            fontSize: "40px" ,
+         
+            fill: mapStyle === lightStyle ? '#EF8354' : '#f9d998' 
           }} />,
         "Jobs": <FaMoneyBillAlt 
         style={{
             cursor: "pointer",
-            fontSize: "32px" 
+            fontSize: "40px" ,
+            fill: mapStyle === lightStyle ? '#288F00' : '#c9eec9' 
           }} />,
         "Services": <FaHandsHelping
         style={{
             cursor: "pointer",
-            fontSize: "32px" 
+            fontSize: "40px" ,
+            fill: mapStyle === lightStyle ? '#BE37B0' : '#D8BFD8' 
           }}  />,
         "Other": <FaConnectdevelop 
         style={{
             cursor: "pointer",
-            fontSize: "32px" 
+            fontSize: "40px" ,
+            fill: mapStyle === lightStyle ? 'black' : 'white' 
           }} />,
     }
     
     return (
 
-
     <div style={{width: "100%", height: "100%"}}>
         <div className='map__filter' >
-  <select
+
+          <div className='map__filter-selector'>
+        
+  <select className='map__filter-select'
     value={selectedCategory || ''}
     onChange={(e) => setSelectedCategory(e.target.value || null)}
   >
-    <option value="">All Categories</option>
-    <option value="Food">Food</option>
-    <option value="Clothes">Clothes</option>
-    <option value="Household">Household</option>
-    <option value="Housing">Housing</option>
-    <option value="Jobs">Jobs</option>
-    <option value="Services">Services</option>
-    <option value="Other">Other</option>
+    <option value=""> ALL CATEGORIES</option>
+    <option value="Food">FOOD</option>
+    <option value="Clothes">CLOTHES</option>
+    <option value="Household">HOUSEHOLD</option>
+    <option value="Housing">HOUSING</option>
+    <option value="Jobs">JOBS</option>
+    <option value="Services">SERVICES</option>
+    <option value="Other">OTHER</option>
   </select>
+  <span className='map__filter-arrow'> </span>
+</div>
+
+<div className='map__filter-switch'>
+<input className='t-input'  type="checkbox"
+    checked={mapStyle === lightStyle}
+    onChange={() =>
+      setMapStyle(mapStyle === lightStyle ? darkStyle : lightStyle)
+    }id="switch" />
+<label className='t-label' for="switch">Toggle</label>
 </div>
 
 
+</div>
         <ReactMapGL 
             initialViewState={{
                 latitude: 25.7741728,
@@ -155,8 +171,7 @@ export default function MainMap () {
          setViewport(newViewport);
             }}
         mapboxAccessToken={"pk.eyJ1IjoiYXNodXRrb3ZhIiwiYSI6ImNsaGdvMWllbzA2cWUzbG56cHd0OWNiMXIifQ.OY3xKwqI9zbx6aflRvdEtw"}
-      
-            mapStyle="mapbox://styles/ashutkova/clhgnu8xz000i01qtdusxcett"
+            mapStyle={mapStyle}
      onDblClick={handleAddClick}
 
 >
@@ -173,14 +188,8 @@ export default function MainMap () {
     }}
     >
 
-       {/* <FaMapMarkerAlt  
-         style={{
-         fill:  "blue",
-         cursor: "pointer",}}
-       /> */}
         {(!selectedCategory || listing.category === selectedCategory) && (categoryIconMapping[listing.category])}
-         {/* {categoryIconMapping[listing.category]} */}
-       
+
     </Marker>
 
     {popupOpen[listing._id] && (
@@ -192,24 +201,21 @@ export default function MainMap () {
                 setPopupOpen(false)
             }}
             closeOnClick={false}
-            
-            anchor="top"
-          >
-            <div>
-                <p> {selectedList?.username}</p>
-                <p>Category: {selectedList?.category}</p>
-                <p>Title: {selectedList?.title}</p>
-                <p>Description: {selectedList?.description}</p>
-                <p>Quantity: {selectedList?.quantity}</p>
-                <p>Phone number: {selectedList?.phone_number}</p>
-                <p>Email: {selectedList?.email}</p>
+            anchor="top" >
+            <div className='map__popup'>
+                <p className='map__popup--bold map__popup--name'> {selectedList?.username}</p>
+                <p> <span className='map__popup--bold'>Category:</span>  {selectedList?.category}</p>
+                <p><span className='map__popup--bold'>Title:</span>  {selectedList?.title}</p>
+                <p><span className='map__popup--bold'>Description:</span>  {selectedList?.description}</p>
+                <p><span className='map__popup--bold'>Quanity:</span>  {selectedList?.quantity}</p>
+                <p><span className='map__popup--bold'>Phone Number:</span>  {selectedList?.phone_number}</p>
+                <p><span className='map__popup--bold'>Email:</span> {selectedList?.email}</p>
                 <p>{format(selectedList?.createdAt)}</p>
-                <button onClick={() => handleDelete(selectedList?._id)}>Delete</button>
+                <button class="button" onClick={() => handleDelete(selectedList?._id)}><span>Picked up</span></button>
             </div>
           </Popup>
         )}
 { newListing && (
-
 
 <Popup
             latitude={newListing.lat}
@@ -222,12 +228,12 @@ export default function MainMap () {
             closeOnClick={false}
             
             anchor="top"
-          > <div>
-            <form onSubmit={handleSubmit}>
+ > <div>
+            <form className='map__submit' onSubmit={handleSubmit}>
                 <label>Name</label>
-                <input type="text" placeholder="Name" onChange={(e) => setNewListingName(e.target.value)} />
+                <input className='map__submit-input' type="text" placeholder="Name" required onChange={(e) => setNewListingName(e.target.value)} />
                 <label>Category</label>
-                <select onChange={(e) => setNewListingCategory(e.target.value)}> 
+                <select className='map__submit-sel' required onChange={(e) => setNewListingCategory(e.target.value)}> 
                     <option value="select">Select</option>
                     <option value="Food">Food</option>
                     <option value="Clothes">Clothes</option>
@@ -238,16 +244,16 @@ export default function MainMap () {
                     <option value="Other">Other</option>
                 </select>
                 <label>Title</label>
-                <input type="text" placeholder="Title" onChange={(e) => setNewListingTitle(e.target.value)} />
+                <input className='map__submit-input' type="text" placeholder="Title" required onChange={(e) => setNewListingTitle(e.target.value)} />
                 <label>Description</label>
-                <input type="text" placeholder="Description" onChange={(e) => setNewListingDescription(e.target.value)} />
+                <input className='map__submit-input'  type="text" placeholder="Description" required onChange={(e) => setNewListingDescription(e.target.value)} />
                 <label>Quantity</label>
-                <input type="text" placeholder="Quantity" onChange={(e) => setNewListingQuantity(e.target.value)} />
+                <input className='map__submit-input'  type="text" pattern="\d+" placeholder="Quantity"  required title="Please enter a valid quantity (numbers only)" onChange={(e) => setNewListingQuantity(e.target.value)} />
                 <label>Phone number</label>
-                <input type="text" placeholder="Phone number"  onChange={(e) => setNewListingPhoneNumber(e.target.value)}/>
+                <input className='map__submit-input'  type="text" placeholder="Phone number" pattern="\d+" required title="Please enter a valid quantity (numbers only)"  onChange={(e) => setNewListingPhoneNumber(e.target.value)}/>
                 <label>Email</label>
-                <input type="text" placeholder="Email"  onChange={(e) => setNewListingEmail(e.target.value)}/>
-                <button type="submit">Submit</button>
+                <input className='map__submit-input map__submit--pad'  type="text" placeholder="Email" required  onChange={(e) => setNewListingEmail(e.target.value)}/>
+                <button className='button ' type="submit"><span>Submit</span></button>
                 
             </form>
           </div>
@@ -259,10 +265,5 @@ export default function MainMap () {
 
 </ReactMapGL>
 
-    </div>
-
-
-
-    )
-}
+    </div>  )}
 

@@ -20,7 +20,6 @@
 
 
     &__link {
-        font-family: 'Castoro';
         font-size: 2rem;
     }
 
@@ -33,12 +32,7 @@
         padding: 0;
         margin: 0;
         width: 40%;
-        // padding-left: 15rem;
     }
-
-
-
-
 }
 
 hr {
@@ -48,11 +42,3 @@ hr {
     margin: 1rem 4rem 0 3rem;
   }
   
-  @keyframes hr-animation {
-    from {
-      background: $background-color;
-    }
-    to {
-      background: linear-gradient($hr-gradient-angle, $hr-gradient-start-color 0%, $hr-gradient-mid-color 50%, $hr-gradient-end-color 100%);
-    }
-  }
