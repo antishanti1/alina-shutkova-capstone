@@ -2,6 +2,7 @@
   "name": "aidmapper-alina-shutkova",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@react-three/drei": "^9.68.3",
     "@react-three/fiber": "^8.13.0",
@@ -12,6 +13,7 @@
     "dotenv": "^16.0.3",
     "framer-motion": "^10.12.10",
     "mapbox-gl": "^2.14.1",
+    "netlify-cli": "^15.1.0",
     "popmotion": "^11.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
