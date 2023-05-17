@@ -27,7 +27,7 @@ export default function MainMap() {
   const [newListingEmail, setNewListingEmail] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [viewport, setViewport] = useState({})
-  const [isHovered, setIsHovered] = useState(false);
+  // const [isHovered, setIsHovered] = useState(false);
   const [mapStyle, setMapStyle] = useState("mapbox://styles/mapbox/dark-v11");
   const darkStyle = "mapbox://styles/mapbox/dark-v11";
   const lightStyle = "mapbox://styles/mapbox/light-v11";
@@ -44,13 +44,13 @@ export default function MainMap() {
     getListings();
   }, []);
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
+  // const handleMouseEnter = () => {
+  //   setIsHovered(true);
+  // };
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
+  // const handleMouseLeave = () => {
+  //   setIsHovered(false);
+  // };
 
 
 
@@ -175,12 +175,12 @@ export default function MainMap() {
 
 
       </div>
-      <div 
+      {/* <div 
       
       className={`nav-container ${isHovered ? 'visible' : ''}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}>
-      <Nav /></div>
+      <Nav /></div> */}
 
       <ReactMapGL
         initialViewState={{
