@@ -7,6 +7,7 @@ import { BsFillHouseFill, } from "react-icons/bs";
 import axios from 'axios';
 import './MainMap.scss';
 import mapboxgl from "mapbox-gl"; 
+import Nav from '../../components/Nav/Nav';
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
 mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
@@ -163,6 +164,8 @@ export default function MainMap() {
 
 
       </div>
+      <div className='map__nav'>
+      <Nav /></div>
       <ReactMapGL
         initialViewState={{
           latitude: 25.7741728,
@@ -258,7 +261,7 @@ export default function MainMap() {
                       <label>Email</label>
                       <input className='map__submit-input map__submit--pad' type="text" placeholder="Email" required onChange={(e) => setNewListingEmail(e.target.value)} />
                       <button className='button ' type="submit"><span>Submit</span></button>
-
+ 
                     </form>
                   </div>
                 </Popup>
