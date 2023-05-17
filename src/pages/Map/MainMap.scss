@@ -7,38 +7,26 @@
 
   position: relative;
 
-  // &__nav {
-  //   display: none;
-  //   @include desktop {
-  //     display: inline;
-  //     visibility: hidden;
-  //     opacity: 0;
-  //     transition: opacity 0.3s ease-in-out;
-    
-  //   }
-  // }
-
-  // &__nav.visible {
-  //   visibility: visible;
-  //   opacity: 1;
-  // }
-
 
   .nav-container {
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
+    display: none;
 
-    @include mobile {
-      display: none;
+    @include desktop {
+      display: inline;
     }
   
-    /* Add other styling properties as needed */
+
   }
   
   .nav-container.visible {
-    visibility: visible;
-    opacity: 1;
+    @include desktop {
+      visibility: visible;
+      opacity: 1;
+    }
+  
   }
 
 
