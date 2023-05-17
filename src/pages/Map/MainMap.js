@@ -6,9 +6,10 @@ import { FaPizzaSlice, FaTshirt, FaCouch, FaMoneyBillAlt, FaHandsHelping, FaConn
 import { BsFillHouseFill, } from "react-icons/bs";
 import axios from 'axios';
 import './MainMap.scss';
+import mapboxgl from "mapbox-gl"; 
 
-
-
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
 export default function MainMap() {
 

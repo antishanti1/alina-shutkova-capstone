@@ -30,7 +30,8 @@
     "three-gltf-loader": "^1.111.0",
     "three-stdlib": "^2.21.11",
     "timeago.js": "^4.0.2",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "worker-loader": "^3.0.8"
   },
   "scripts": {
     "start": "react-scripts start",
