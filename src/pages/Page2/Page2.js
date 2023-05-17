@@ -6,11 +6,14 @@ import { OrbitControls } from '@react-three/drei';
 import Model from './Model';
 import { motion } from "framer-motion";
 import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
+import OurStory from '../OurStory/OurStory';
 
 
 export default function Page2() {
 
     return (
+
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
             transition={{ duration: 0.75, ease: "easeOut" }}
             exit={{ opacity: 0 }}>
@@ -38,5 +41,7 @@ export default function Page2() {
                 </div>
             </div>
         </ motion.div>
+
+
     )
 }

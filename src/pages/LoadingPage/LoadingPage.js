@@ -1,13 +1,20 @@
 import './LoadingPage.scss';
-import { React, Suspense } from 'react';
+import { React, Suspense, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { FaConnectdevelop } from "react-icons/fa";
 import { OrbitControls } from '@react-three/drei';
 import MainModel from './MainModel';
 import { motion } from 'framer-motion';
 import { AiOutlineArrowDown } from 'react-icons/ai';
+import { Link } from "react-router-dom";
+import Page2 from '../Page2/Page2';
+import Button from '../../components/Button/Button';
+import ArrowButton from '../../components/ArrowButton/ArrowButton';
 
-export default function LoadingPage() {
+import {HashLink} from 'react-router-hash-link';
+
+export default function LoadingPage({ scrollToPage2 }) {
+
 
   return (
     <>
@@ -36,8 +43,20 @@ export default function LoadingPage() {
           </Canvas>
         </div>
 
-        <span className='load-box__arrow'><AiOutlineArrowDown /></span>
+
+           <Link to='/about'></Link>
+
+           <HashLink smooth to='#about' >
+  <div className='load-box__arrow'  >
+     <ArrowButton />
+  </div>
+          
+           
+</HashLink>
       </div>
+      <section id='about'>
+  <Page2 />
+</section>
     </>
   )
 }

@@ -8,12 +8,12 @@
     align-items: center;
     justify-content: flex-end;
     flex-direction: column;
-    gap: 18rem;
+ 
 
 
     &__arrow {
-        font-size: 5rem;
-        color: $primary-color-dark;
+        padding-bottom: 5rem;
+        padding-top: 17rem;
     }
 
     &__heading {
