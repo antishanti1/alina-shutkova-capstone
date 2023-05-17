@@ -27,6 +27,7 @@ export default function MainMap() {
   const [newListingEmail, setNewListingEmail] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [viewport, setViewport] = useState({})
+  const [isHovered, setIsHovered] = useState(false);
   const [mapStyle, setMapStyle] = useState("mapbox://styles/mapbox/dark-v11");
   const darkStyle = "mapbox://styles/mapbox/dark-v11";
   const lightStyle = "mapbox://styles/mapbox/light-v11";
@@ -42,6 +43,16 @@ export default function MainMap() {
     };
     getListings();
   }, []);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+
 
   const handleAddClick = (e) => {
     const { lng, lat } = e.lngLat;
@@ -164,7 +175,11 @@ export default function MainMap() {
 
 
       </div>
-      <div className='map__nav'>
+      <div 
+      
+      className={`map__nav ${isHovered ? 'visible' : ''}`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}>
       <Nav /></div>
       <ReactMapGL
         initialViewState={{
@@ -216,7 +231,7 @@ export default function MainMap() {
                     <p><span className='map__popup--bold'>Description:</span>  {selectedList?.description}</p>
                     <p><span className='map__popup--bold'>Quanity:</span>  {selectedList?.quantity}</p>
                     <p><span className='map__popup--bold'>Phone Number:</span>  {selectedList?.phone_number}</p>
-                    <p><span className='map__popup--bold'>Email:</span> {selectedList?.email}</p>
+                    <p className='map__popup--info'> <span className='map__popup--bold'>Email:</span> {selectedList?.email}</p>
                     <p>{format(selectedList?.createdAt)}</p>
                     <button class="button" onClick={() => handleDelete(selectedList?._id)}><span>Picked up</span></button>
                   </div>
