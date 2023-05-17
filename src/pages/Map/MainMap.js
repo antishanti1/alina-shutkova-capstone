@@ -177,10 +177,11 @@ export default function MainMap() {
       </div>
       <div 
       
-      className={`map__nav ${isHovered ? 'visible' : ''}`}
+      className={`nav-container ${isHovered ? 'visible' : ''}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}>
       <Nav /></div>
+
       <ReactMapGL
         initialViewState={{
           latitude: 25.7741728,
