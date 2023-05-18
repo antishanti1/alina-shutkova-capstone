@@ -44,15 +44,6 @@ export default function MainMap() {
     getListings();
   }, []);
 
-  // const handleMouseEnter = () => {
-  //   setIsHovered(true);
-  // };
-
-  // const handleMouseLeave = () => {
-  //   setIsHovered(false);
-  // };
-
-
 
   const handleAddClick = (e) => {
     const { lng, lat } = e.lngLat;
